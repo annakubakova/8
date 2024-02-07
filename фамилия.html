@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HTML5 canvas pie chart</title>
+<style>
+    canvas {background: #7cc4ff}
+</style>
+<script>
+function draw() {
+        
+        var canvas = document.getElementById('myCanvas');
+        var ctx = canvas.getContext('2d');
+    
+        var beginAngle = 0;
+        var endAngle = 0;
+        var data = [170, 60, 45]; 
+        var total = 0; 
+        var colours = ["#4513f8", "#8867ff", "#c1b0ff"];
+        const SPACE = 10;
+    
+        for (var i = 0; i < data.length; i++) {
+          total += data[i];
+        }
+    
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 2;
+    
+        for (var j = 0; j < data.length; j++) {
+    
+            endAngle = beginAngle + (Math.PI * 2 * (data[j] / total));
+            ctx.fillStyle = colours[j];
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2, canvas.height/2);
+            ctx.arc(canvas.width/2, canvas.height/2, canvas.height/2 - SPACE, 
+                beginAngle, endAngle, false);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            beginAngle = endAngle;
+    
+        }
+        
+        ctx.fillStyle = "black";
+        ctx.font = "20px Arial";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("РЕКУНКОВА", canvas.width/2, canvas.height/2);     
+    }
+    
+</script>
+</head>
+<body onload="draw();">
+    <canvas id="myCanvas" width="350" height="300">
+    </canvas>
+</body>
+</html> 
